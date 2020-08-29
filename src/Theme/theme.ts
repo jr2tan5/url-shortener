@@ -22,6 +22,10 @@ const theme = createMuiTheme({
       fontWeight: "bold",
       lineHeight: 1.5,
     },
+    h3: {
+      fontSize:20,
+      lineHeight: 1.5,
+    },
   },
 });
 

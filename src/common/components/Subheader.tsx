@@ -3,8 +3,8 @@ import { Typography } from "@material-ui/core";
 
 interface Props {}
 
-const Subtitle = (props: React.PropsWithChildren<Props>) => {
+const Subheader = (props: React.PropsWithChildren<Props>) => {
   return <Typography variant="h2">{props.children}</Typography>;
 };
 
-export default Subtitle;
+export default Subheader;
