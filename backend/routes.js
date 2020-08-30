@@ -21,8 +21,8 @@ const routes = () => {
   app.post(apiRouteOf("/world"), (req, res) => {
     console.log(req.body);
     res.send({ express: `I received your POST request. This is what you sent me: ${req.body.post}`}
-      
     );
+    console.log(req.body.suffix);
   });
 
   app.listen(port, () => console.log(`Listening on port ${port}`));
