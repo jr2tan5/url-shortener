@@ -26,11 +26,28 @@ const AppLayout = () => {
   const [destinationUrl, setDestinationUrl] = useState("");
   const [output, setOutput] = useState("");
 
-  const onSubmit = async (form: Form) => {
-    // Check suffix contains valid characters
-    const response = await fetch('http://localhost:5000/api/v1/hello');
+  const postReq = async (form: Form) => {
+    const response = await fetch("http://localhost:5000/api/v1/world", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        suffix: form.suffix,
+        destinationURL: form.destinationUrl,
+      }),
+    });
     const data = await response.json();
-    alert(data.express)
+  };
+
+  const getReq = async () => {
+    const response = await fetch("http://localhost:5000/api/v1/hello");
+    const data = await response.json();
+    alert(data.express);
+  };
+
+  const onSubmit = (form: Form) => {
+    // Check suffix contains valid characters
+    //getReq();
+    postReq(form);
     // If suffix exist and corresponding destination url is the same, return existing shortened url
 
     // If suffix does not exist - Save to db

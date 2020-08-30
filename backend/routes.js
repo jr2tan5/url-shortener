@@ -7,6 +7,7 @@ const routes = () => {
   const app = express();
   const port = process.env.PORT || 5000;
 
+  // Allow http requests from same origin (Bypass Cors)
   app.use(cors({
     origin: 'http://localhost:3000'
   }));
@@ -19,8 +20,8 @@ const routes = () => {
 
   app.post(apiRouteOf("/world"), (req, res) => {
     console.log(req.body);
-    res.send(
-      `I received your POST request. This is what you sent me: ${req.body.post}`
+    res.send({ express: `I received your POST request. This is what you sent me: ${req.body.post}`}
+      
     );
   });
 
