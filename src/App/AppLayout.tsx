@@ -4,6 +4,7 @@ import Title from "../common/components/Title";
 import Subheader from "../common/components/Subheader";
 import Label from "../common/components/Label";
 import { Form } from "../form";
+import { asd } from "../connectMySQL";
 
 const useStyles = makeStyles((theme) => ({
   textField: {
@@ -60,6 +61,7 @@ const AppLayout = () => {
 
 const onSubmit = (form: Form, setOutput:React.Dispatch<React.SetStateAction<string>>) => {
   setOutput(form.destinationUrl);
+  asd();
 }
 
 export default AppLayout;
