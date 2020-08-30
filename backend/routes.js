@@ -1,6 +1,6 @@
 const express = require("express");
 const bodyParser = require("body-parser");
-const apiRouteOf = require('./util/RouteUtil').apiRouteOf;
+const apiRouteOf = require("./util/RouteUtil").apiRouteOf;
 
 const routes = () => {
   const app = express();
