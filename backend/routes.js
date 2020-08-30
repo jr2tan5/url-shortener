@@ -1,11 +1,15 @@
 const express = require("express");
 const bodyParser = require("body-parser");
+const cors = require('cors');``
 const apiRouteOf = require("./util/RouteUtil").apiRouteOf;
 
 const routes = () => {
   const app = express();
   const port = process.env.PORT || 5000;
 
+  app.use(cors({
+    origin: 'http://localhost:3000'
+  }));
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({ extended: true }));
 

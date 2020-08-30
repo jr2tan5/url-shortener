@@ -1,14 +1,13 @@
-import React, { useState } from "react";
 import {
   Box,
-  TextField,
-  makeStyles,
   Button,
+  makeStyles,
+  TextField,
   Typography,
 } from "@material-ui/core";
-import Title from "../common/components/Title";
+import React, { useState } from "react";
 import Subheader from "../common/components/Subheader";
-import Label from "../common/components/Label";
+import Title from "../common/components/Title";
 import { Form } from "../form";
 
 const useStyles = makeStyles((theme) => ({
@@ -27,9 +26,11 @@ const AppLayout = () => {
   const [destinationUrl, setDestinationUrl] = useState("");
   const [output, setOutput] = useState("");
 
-  const onSubmit = (form: Form) => {
+  const onSubmit = async (form: Form) => {
     // Check suffix contains valid characters
-
+    const response = await fetch('http://localhost:5000/api/v1/hello');
+    const data = await response.json();
+    alert(data.express)
     // If suffix exist and corresponding destination url is the same, return existing shortened url
 
     // If suffix does not exist - Save to db
