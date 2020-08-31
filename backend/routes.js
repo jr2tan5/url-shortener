@@ -54,7 +54,7 @@ const routes = (app, db) => {
             }
           );
         } else {
-          ResponseUtil.unprocessibleEntity(res, "Suffix Already Exists");
+          ResponseUtil.unprocessibleEntity(res, {shortenedUrl: "Suffix Already Exists"});
         }
       },
       (error) => {
