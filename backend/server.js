@@ -1,3 +1,4 @@
+'use strict'
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
@@ -16,5 +17,6 @@ require("dotenv").config(); // Load environment variables
   app.use(bodyParser.urlencoded({ extended: true }));
   app.listen(port, () => console.log(`Listening on port ${port}`));
 
-  require("./routes").routes(app); // Initialize Routes
+  const db = require("./MySQLConnection").connectToDB();
+  require("./routes").routes(app, db); // Initialize Routes
 })();

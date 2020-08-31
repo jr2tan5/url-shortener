@@ -1,30 +1,72 @@
 const apiRouteOf = require("./util/RouteUtil").apiRouteOf;
 const baseRouteOf = require("./util/RouteUtil").baseRouteOf;
+const ResponseUtil = require("./util/ResponseUtil");
+const URLShortenerRepository = require("./repository/URLShortenerRepository");
 
-const routes = (app) => {
+const routes = (app, db) => {
   app.get(baseRouteOf("/:suffix"), (req, res) => {
-    res.status(404).send("Cant find the specified url");
+    const suffix = req.params.suffix;
+    URLShortenerRepository.findRecordBySuffix(
+      db,
+      suffix,
+      (result) => {
+        if (result) {
+          destinationURL = 'http://' + result.destination_url
+          res.redirect(destinationURL);
+        } else {
+          ResponseUtil.notFound(res, "url not found");
+        }
+      },
+      (error) => {
+        if (error) {
+          ResponseUtil.unprocessibleEntity(res, error);
+        }
+      }
+    );
     // res.redirect("http://maplesea.com/");
-    // console.log(req.params.suffix);
+    // console.log();
   });
 
   app.post(apiRouteOf("/submit"), (req, res) => {
     // Check suffix contains valid characters
+    const suffix = req.body.form.suffix_;
+    const destinationUrl = req.body.form.destinationUrl_;
 
-    // If suffix exist and corresponding destination url is the same, return existing shortened url
-
-    // If suffix does not exist - Save to db
-
-    // if suffix exist but no corresponding destination url - generate next sequence number and save to db with the suffix.
-
-    res.send({
-      shortenedUrl: generateShortendUrl(req),
-    });
+    URLShortenerRepository.findRecordBySuffix(
+      db,
+      suffix,
+      (result) => {
+        if (!result) {
+          URLShortenerRepository.saveSingleRecord(
+            db,
+            suffix,
+            destinationUrl,
+            (data) => {
+              ResponseUtil.success(res, {
+                shortenedUrl: generateShortendUrl(req, suffix),
+              });
+            },
+            (error) => {
+              if (error) {
+                ResponseUtil.unprocessibleEntity(res, error);
+              }
+            }
+          );
+        } else {
+          ResponseUtil.unprocessibleEntity(res, "Suffix Already Exists");
+        }
+      },
+      (error) => {
+        if (error) {
+          ResponseUtil.unprocessibleEntity(res, error);
+        }
+      }
+    );
   });
 };
 
-const generateShortendUrl = (req) => {
-  return `${req.protocol}://${req.headers.host}/${req.body.form.suffix_}`;
+const generateShortendUrl = (req, suffix) => {
+  return `${req.protocol}://${req.headers.host}/${suffix}`;
 };
 
 exports.routes = routes;
