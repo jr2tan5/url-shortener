@@ -5,9 +5,9 @@ const findRecordBySuffix = (db, suffix, success, error) => {
       if (err) throw err;
 
       if (result.length > 1) {
-        error("Duplicate Records");
+        error("Duplicate Records",db);
       }
-      success(result[0]);
+      success(result[0],db);
     }
   );
 };
@@ -25,7 +25,7 @@ const saveSingleRecord = (db, suffix, destinationUrl, success, error) => {
     if (err) {
       throw err;
     } else {
-      success(data[0]);
+      success(data[0],db);
     }
   });
 };
