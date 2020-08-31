@@ -8,14 +8,10 @@ export const asd = () => {
     database: "url_shortener",
   });
 
-  con.connect(function (err: any) {
+  con.connect(function (err) {
     if (err) throw err;
     console.log("Connected!");
-    con.query("SELECT * FROM suffix_mapper", function (
-      err: any,
-      result: any,
-      fields: any
-    ) {
+    con.query("SELECT * FROM suffix_mapper", function (err, result, fields) {
       if (err) throw err;
       console.log(result);
     });

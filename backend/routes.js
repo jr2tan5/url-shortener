@@ -16,7 +16,7 @@ const routes = (app) => {
     // If suffix does not exist - Save to db
 
     // if suffix exist but no corresponding destination url - generate next sequence number and save to db with the suffix.
-    
+
     res.send({
       shortenedUrl: generateShortendUrl(req),
     });
@@ -25,6 +25,6 @@ const routes = (app) => {
 
 const generateShortendUrl = (req) => {
   return `${req.protocol}://${req.headers.host}/${req.body.form.suffix_}`;
-}
+};
 
 exports.routes = routes;
