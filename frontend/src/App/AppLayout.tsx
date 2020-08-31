@@ -54,7 +54,7 @@ const AppLayout = () => {
 
     // if suffix exist but no corresponding destination url - generate next sequence number and save to db with the suffix.
 
-    setOutput(form.destinationUrl);
+    setOutput("http://localhost:5000/"+form.suffix);
   };
 
   return (
@@ -104,7 +104,7 @@ const AppLayout = () => {
         >
           Convert
         </Button>
-        <Title>Output</Title>
+        <Title>Output URL</Title>
         <Typography>{output}</Typography>
       </Box>
     </Box>

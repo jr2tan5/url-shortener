@@ -1,16 +1,20 @@
 const express = require("express");
 const bodyParser = require("body-parser");
-const cors = require('cors');``
+const cors = require("cors");
+``;
 const apiRouteOf = require("./util/RouteUtil").apiRouteOf;
+const baseRouteOf = require("./util/RouteUtil").baseRouteOf;
 
 const routes = () => {
   const app = express();
   const port = process.env.PORT || 5000;
 
   // Allow http requests from same origin (Bypass Cors)
-  app.use(cors({
-    origin: 'http://localhost:3000'
-  }));
+  app.use(
+    cors({
+      origin: "http://localhost:3000",
+    })
+  );
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -18,10 +22,16 @@ const routes = () => {
     res.send({ express: "Hello From Express" });
   });
 
+  app.get(baseRouteOf("/:suffix"), (req, res) => {
+    res.redirect("http://maplesea.com/");
+    console.log(req.params.suffix);
+  });
+
   app.post(apiRouteOf("/world"), (req, res) => {
     console.log(req.body);
-    res.send({ express: `I received your POST request. This is what you sent me: ${req.body.post}`}
-    );
+    res.send({
+      express: `I received your POST request. This is what you sent me: ${req.body.post}`,
+    });
     console.log(req.body.suffix);
   });
 
