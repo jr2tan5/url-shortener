@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import Title from "./common/components/Title";
-import Subheader from "./common/components/Subheader";
+import Title from "./Title";
+import Subheader from "./Subheader";
 import { TextField, Button, makeStyles } from "@material-ui/core";
-import { Form } from "./form";
+import { Form } from "../../form";
 
 interface Props {
   onSubmit: (form: Form) => void;

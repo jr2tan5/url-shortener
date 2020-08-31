@@ -4,14 +4,15 @@ import Title from "../common/components/Title";
 import { UrlUtil } from "../common/util/UrlUtil";
 import { Form } from "../form";
 import { UrlShortenerService } from "../service/UrlShortenerService";
-import UrlShortenerForm from "../UrlShortenerForm";
+import UrlShortenerForm from "../common/components/UrlShortenerForm";
+import Output from "../common/components/Output";
 
 const AppLayout = () => {
   const [output, setOutput] = useState("");
 
-  const onSubmit = (form: Form) => {
-    UrlShortenerService.createUrlEntry(form);
-    setOutput(UrlUtil.toOutputUrl(form.suffix));
+  const onSubmit = async (form: Form) => {
+    const shortenedUrl = await UrlShortenerService.createUrlEntry(form);
+    setOutput(shortenedUrl);
   };
 
   return (
@@ -24,8 +25,7 @@ const AppLayout = () => {
         marginTop="5px"
       >
         <UrlShortenerForm onSubmit={onSubmit} />
-        <Title>Output URL</Title>
-        <Typography>{output}</Typography>
+        <Output output={output} />
       </Box>
     </Box>
   );

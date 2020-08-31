@@ -1,12 +1,14 @@
 import { Form } from "../form";
+import { UrlUtil } from "../common/util/UrlUtil";
 
-const createUrlEntry = async (form: Form) => {
-  const response = await fetch("http://localhost:5000/api/v1/world", {
+const createUrlEntry = async (form: Form): Promise<string> => {
+  const response = await fetch(UrlUtil.toEndpointRoute("submit"), {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ form }),
   });
   const data = await response.json();
+  return data.shortenedUrl;
 };
 
 export const UrlShortenerService = {
