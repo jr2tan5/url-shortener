@@ -1,41 +1,27 @@
-const express = require("express");
-const bodyParser = require("body-parser");
-const cors = require("cors");
-``;
 const apiRouteOf = require("./util/RouteUtil").apiRouteOf;
 const baseRouteOf = require("./util/RouteUtil").baseRouteOf;
 
-const routes = () => {
-  const app = express();
-  const port = process.env.PORT || 5000;
-
-  // Allow http requests from same origin (Bypass Cors)
-  app.use(
-    cors({
-      origin: "http://localhost:3000",
-    })
-  );
-  app.use(bodyParser.json());
-  app.use(bodyParser.urlencoded({ extended: true }));
-
-  app.get(apiRouteOf("/hello"), (req, res) => {
-    res.send({ express: "Hello From Express" });
-  });
-
+const routes = (app) => {
   app.get(baseRouteOf("/:suffix"), (req, res) => {
-    res.redirect("http://maplesea.com/");
-    console.log(req.params.suffix);
+    res.status(404).send("Cant find the specified url");
+    // res.redirect("http://maplesea.com/");
+    // console.log(req.params.suffix);
   });
 
   app.post(apiRouteOf("/world"), (req, res) => {
+    // Check suffix contains valid characters
+
+    // If suffix exist and corresponding destination url is the same, return existing shortened url
+
+    // If suffix does not exist - Save to db
+
+    // if suffix exist but no corresponding destination url - generate next sequence number and save to db with the suffix.
     console.log(req.body);
     res.send({
       express: `I received your POST request. This is what you sent me: ${req.body.post}`,
     });
-    console.log(req.body.suffix);
+    console.log(req.body.form.suffix_);
   });
-
-  app.listen(port, () => console.log(`Listening on port ${port}`));
 };
 
-exports.routes = routes();
+exports.routes = routes;
