@@ -12,9 +12,8 @@ const routes = (app, db) => {
       (result) => {
         if (result) {
           if (!result.destination_url.startsWith("http"))
-            destinationURL = 'http://' + result.destination_url;
-          else
-            destinationURL = result.destination_url;
+            destinationURL = "http://" + result.destination_url;
+          else destinationURL = result.destination_url;
           res.redirect(destinationURL);
         } else {
           ResponseUtil.notFound(res, "url not found");
@@ -54,7 +53,9 @@ const routes = (app, db) => {
             }
           );
         } else {
-          ResponseUtil.unprocessibleEntity(res, {shortenedUrl: "Suffix Already Exists"});
+          ResponseUtil.unprocessibleEntity(res, {
+            shortenedUrl: "Suffix Already Exists",
+          });
         }
       },
       (error) => {
