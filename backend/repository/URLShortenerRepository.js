@@ -1,19 +1,18 @@
-const findRecordBySuffix = (db, suffix, success, error) => {
-  db.query(
-    `SELECT * FROM suffix_mapper where suffix = '${suffix}'`,
-    (err, result) => {
-      if (err) throw err;
+const executeQuery = require("../MySQLExecuteQuery");
+const mysql = require("mysql");
 
-      if (result.length > 1) {
-        error("Duplicate Records",db);
-      }
-      success(result[0],db);
+const findRecordBySuffix = (suffix, success, error) => {
+  let query = `SELECT * FROM suffix_mapper where suffix = '${suffix}'`;
+  executeQuery(query, (result) => {
+    if (result.length > 1) {
+      error("Duplicate Records");
     }
-  );
+    success(result[0]);
+  });
 };
 
-const saveSingleRecord = (db, suffix, destinationUrl, success, error) => {
-  var sql = `INSERT INTO suffix_mapper 
+const saveSingleRecord = (suffix, destinationUrl, success) => {
+  let query = `INSERT INTO suffix_mapper 
             (
                 suffix, destination_url
             )
@@ -21,12 +20,9 @@ const saveSingleRecord = (db, suffix, destinationUrl, success, error) => {
             (
                 ?, ?
             )`;
-  db.query(sql, [suffix, destinationUrl], (err, data) => {
-    if (err) {
-      throw err;
-    } else {
-      success(data[0],db);
-    }
+  query = mysql.format(query, [suffix, destinationUrl]);
+  executeQuery(query, (result) => {
+    success(result[0]);
   });
 };
 

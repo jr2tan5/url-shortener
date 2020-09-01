@@ -1,28 +1,21 @@
 const apiRouteOf = require("./util/RouteUtil").apiRouteOf;
 const baseRouteOf = require("./util/RouteUtil").baseRouteOf;
+const UrlUtil = require("./util/UrlUtil");
 const ResponseUtil = require("./util/ResponseUtil");
 const URLShortenerRepository = require("./repository/URLShortenerRepository");
 
-const routes = (app, db) => {
+const routes = (app) => {
   app.get(baseRouteOf("/:suffix"), (req, res) => {
     const suffix = req.params.suffix;
     URLShortenerRepository.findRecordBySuffix(
-      db,
       suffix,
       (result) => {
-        if (result) {
-          if (!result.destination_url.startsWith("http"))
-            destinationURL = "http://" + result.destination_url;
-          else destinationURL = result.destination_url;
-          res.redirect(destinationURL);
-        } else {
-          ResponseUtil.notFound(res, "url not found");
-        }
+        if (result)
+          res.redirect(UrlUtil.protocalAppender(result.destination_url));
+        else ResponseUtil.notFound(res, "url not found");
       },
       (error) => {
-        if (error) {
-          ResponseUtil.unprocessibleEntity(res, error);
-        }
+        if (error) ResponseUtil.unprocessibleEntity(res, error);
       }
     );
   });
@@ -33,23 +26,19 @@ const routes = (app, db) => {
     const destinationUrl = req.body.form.destinationUrl_;
 
     URLShortenerRepository.findRecordBySuffix(
-      db,
       suffix,
       (result) => {
         if (!result) {
           URLShortenerRepository.saveSingleRecord(
-            db,
             suffix,
             destinationUrl,
-            (data) => {
+            (result) => {
               ResponseUtil.success(res, {
                 shortenedUrl: generateShortendUrl(req, suffix),
               });
             },
             (error) => {
-              if (error) {
-                ResponseUtil.unprocessibleEntity(res, error);
-              }
+              if (error) ResponseUtil.unprocessibleEntity(res, error);
             }
           );
         } else {
@@ -59,9 +48,7 @@ const routes = (app, db) => {
         }
       },
       (error) => {
-        if (error) {
-          ResponseUtil.unprocessibleEntity(res, error);
-        }
+        if (error) ResponseUtil.unprocessibleEntity(res, error);
       }
     );
   });
