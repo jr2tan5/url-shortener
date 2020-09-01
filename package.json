@@ -1,0 +1,7 @@
+{
+  "name": "url-shortener",
+  "version": "1.0.0",
+  "scripts": {
+    "heroku-postbuild": "cd frontend && npm install && npm install --only=dev --no-shrinkwrap && cd ../backend && npm run build"
+  }
+}
