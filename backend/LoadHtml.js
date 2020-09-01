@@ -1,3 +1,5 @@
+const path = require("path");
+
 const loadHtml = (express, app) => {
   if (process.env.NODE_ENV === "production") {
     // Serve any static files

@@ -1,7 +1,6 @@
 "use strict";
 const express = require("express");
 const bodyParser = require("body-parser");
-const path = require("path");
 const cors = require("cors");
 const loadHtml = require("./LoadHtml");
 require("./LoadEnvConfig");
@@ -17,7 +16,7 @@ require("./LoadEnvConfig");
   );
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({ extended: true }));
-  loadHtml(express, app);
+  loadHtml(app);
   app.listen(port, () => console.log(`Listening on port ${port}`));
 
   require("./routes").routes(app); // Initialize Routes
