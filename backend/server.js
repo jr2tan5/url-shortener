@@ -3,9 +3,11 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const path = require("path");
 const cors = require("cors");
-
 require("dotenv").config({
-  path: process.env.NODE_ENV ? `.env.development` : ".env",
+  path:
+    process.env.NODE_ENV.trim() === "development"
+      ? `.env.${process.env.NODE_ENV.trim()}`
+      : `.env`,
 }); // Load environment variables
 
 // Self calling initialzation function
