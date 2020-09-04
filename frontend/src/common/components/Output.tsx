@@ -17,7 +17,7 @@ const Output = (props: Props) => {
     alert("Copied to Clipboard");
   };
 
-  return (
+  return props.outputUrl !== "" ? (
     <>
       <Title>Output URL</Title>
       <Typography>{props.outputUrl}</Typography>
@@ -31,6 +31,8 @@ const Output = (props: Props) => {
         Copy URL
       </Button>
     </>
+  ) : (
+    <></>
   );
 };
 

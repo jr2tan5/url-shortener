@@ -23,7 +23,7 @@ const AppLayout = () => {
         marginTop="5px"
       >
         <UrlShortenerForm onSubmit={onSubmit} />
-        {output !== "" ? <Output outputUrl={output} /> : ""}
+        <Output outputUrl={output} />
       </Box>
     </Box>
   );
