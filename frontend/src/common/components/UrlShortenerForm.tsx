@@ -62,7 +62,7 @@ const UrlShortenerForm = (props: Props) => {
             props.onSubmit(form);
           }         
           else{
-            alert('suffix should only consist of alphanumeric characters')
+            alert('suffix must not be empty and should only consist of alphanumeric characters')
           }
         }}
         color="primary"

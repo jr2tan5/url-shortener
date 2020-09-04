@@ -23,7 +23,7 @@ const routes = (app) => {
     } else {
       ResponseUtil.unprocessibleEntity(
         res,
-        "suffix should only consist of alphanumeric characters"
+        "suffix must not be empty and should only consist of alphanumeric characters"
       );
     }
   });
@@ -63,7 +63,7 @@ const routes = (app) => {
     } else {
       ResponseUtil.unprocessibleEntity(
         res,
-        "suffix should only consist of alphanumeric characters"
+        "suffix must not be empty and should only consist of alphanumeric characters"
       );
     }
   });
