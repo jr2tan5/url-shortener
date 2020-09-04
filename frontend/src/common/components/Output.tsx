@@ -1,6 +1,6 @@
-import React, { useRef } from "react";
+import { Button, Typography } from "@material-ui/core";
+import React from "react";
 import Title from "./Title";
-import { Typography, Button } from "@material-ui/core";
 
 interface Props {
   outputUrl: string;
