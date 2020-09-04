@@ -1,16 +1,35 @@
-import React from "react";
+import React, { useRef } from "react";
 import Title from "./Title";
-import { Typography } from "@material-ui/core";
+import { Typography, Button } from "@material-ui/core";
 
 interface Props {
-  output: string;
+  outputUrl: string;
 }
 
 const Output = (props: Props) => {
+  const copyToClipboard = () => {
+    var dummy = document.createElement("textarea");
+    document.body.appendChild(dummy);
+    dummy.value = props.outputUrl;
+    dummy.select();
+    document.execCommand("copy");
+    document.body.removeChild(dummy);
+    alert("Copied to Clipboard");
+  };
+
   return (
     <>
       <Title>Output URL</Title>
-      <Typography>{props.output}</Typography>
+      <Typography>{props.outputUrl}</Typography>
+      <Button
+        variant="outlined"
+        onClick={(event) => {
+          copyToClipboard();
+        }}
+        color="primary"
+      >
+        Copy URL
+      </Button>
     </>
   );
 };

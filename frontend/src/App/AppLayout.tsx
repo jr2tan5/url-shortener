@@ -1,11 +1,9 @@
-import { Box, Typography } from "@material-ui/core";
+import { Box } from "@material-ui/core";
 import React, { useState } from "react";
-import Title from "../common/components/Title";
-import { UrlUtil } from "../common/util/UrlUtil";
-import { Form } from "../form";
-import { UrlShortenerService } from "../service/UrlShortenerService";
-import UrlShortenerForm from "../common/components/UrlShortenerForm";
 import Output from "../common/components/Output";
+import UrlShortenerForm from "../common/components/UrlShortenerForm";
+import { Form } from "../model/form";
+import { UrlShortenerService } from "../service/UrlShortenerService";
 
 const AppLayout = () => {
   const [output, setOutput] = useState("");
@@ -25,7 +23,7 @@ const AppLayout = () => {
         marginTop="5px"
       >
         <UrlShortenerForm onSubmit={onSubmit} />
-        <Output output={output} />
+        {output !== "" ? <Output outputUrl={output} /> : ""}
       </Box>
     </Box>
   );

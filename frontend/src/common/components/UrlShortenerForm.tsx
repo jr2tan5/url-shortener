@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import Title from "./Title";
 import Subheader from "./Subheader";
 import { TextField, Button, makeStyles } from "@material-ui/core";
-import { Form } from "../../form";
+import { Form } from "../../model/form";
+import { validateSuffix } from "../util/FormValidator";
 
 interface Props {
   onSubmit: (form: Form) => void;
@@ -55,9 +56,14 @@ const UrlShortenerForm = (props: Props) => {
         className={classes.buttonField}
         onClick={(event) => {
           const form = new Form();
-          form.suffix = customSuffix;
-          form.destinationUrl = destinationUrl;
-          props.onSubmit(form);
+          if (validateSuffix(customSuffix)){
+            form.suffix = customSuffix;
+            form.destinationUrl = destinationUrl;
+            props.onSubmit(form);
+          }         
+          else{
+            alert('suffix should only consist of alphanumeric characters')
+          }
         }}
         color="primary"
       >

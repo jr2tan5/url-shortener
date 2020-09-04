@@ -1,4 +1,4 @@
-import { Form } from "../form";
+import { Form } from "../model/form";
 import { UrlUtil } from "../common/util/UrlUtil";
 
 const createUrlEntry = async (form: Form): Promise<string> => {
