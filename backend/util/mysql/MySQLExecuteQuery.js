@@ -1,4 +1,4 @@
-const pool = require("./MySQLPoolConfiguration");
+const pool = require("../../repository/MySQLPoolConfiguration");
 
 const executeQuery = (query, callback) => {
   pool.getConnection((err, connection) => {
