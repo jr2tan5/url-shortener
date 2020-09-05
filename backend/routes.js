@@ -29,7 +29,6 @@ const routes = (app) => {
   });
 
   app.post(apiRouteOf("/submit"), (req, res) => {
-    // Check suffix contains valid characters
     const suffix = req.body.form.suffix_;
     const destinationUrl = req.body.form.destinationUrl_;
 
@@ -45,15 +44,10 @@ const routes = (app) => {
                 ResponseUtil.success(res, {
                   shortenedUrl: generateShortendUrl(req, suffix),
                 });
-              },
-              (error) => {
-                if (error) ResponseUtil.unprocessibleEntity(res, error);
               }
             );
           } else {
-            ResponseUtil.unprocessibleEntity(res, {
-              shortenedUrl: "suffix already exists",
-            });
+            ResponseUtil.unprocessibleEntity(res, "suffix already exists");
           }
         },
         (error) => {

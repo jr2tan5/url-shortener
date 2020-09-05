@@ -9,7 +9,7 @@ const notFound = (res, message) => {
 };
 
 const unprocessibleEntity = (res, message) => {
-  res.status(StatusCodes.UNPROCESSABLE_ENTITY).send(message);
+  res.status(StatusCodes.UNPROCESSABLE_ENTITY).send({ message: message });
 };
 
 module.exports = {

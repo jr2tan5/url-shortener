@@ -10,7 +10,7 @@ const createUrlEntry = async (form: Form): Promise<string> => {
   });
   const data = await response.json();
   if (response.status === StatusCodes.UNPROCESSABLE_ENTITY) {
-    alert(data);
+    alert(data.message);
     return "";
   }
   return data.shortenedUrl;
