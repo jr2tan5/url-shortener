@@ -1,5 +1,6 @@
 import { Form } from "../model/form";
 import { UrlUtil } from "../common/util/UrlUtil";
+import { StatusCodes } from "http-status-codes";
 
 const createUrlEntry = async (form: Form): Promise<string> => {
   const response = await fetch(UrlUtil.toEndpointRoute("submit"), {
@@ -8,9 +9,9 @@ const createUrlEntry = async (form: Form): Promise<string> => {
     body: JSON.stringify({ form }),
   });
   const data = await response.json();
-  if(response.status === 422) {
+  if (response.status === StatusCodes.UNPROCESSABLE_ENTITY) {
     alert(data);
-    return '';
+    return "";
   }
   return data.shortenedUrl;
 };
