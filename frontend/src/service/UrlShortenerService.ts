@@ -8,6 +8,10 @@ const createUrlEntry = async (form: Form): Promise<string> => {
     body: JSON.stringify({ form }),
   });
   const data = await response.json();
+  if(response.status === 422) {
+    alert(data);
+    return '';
+  }
   return data.shortenedUrl;
 };
 
