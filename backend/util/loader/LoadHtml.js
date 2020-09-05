@@ -6,6 +6,7 @@ const loadHtml = (express, app) => {
     app.use(express.static(path.join(__dirname, "build")));
     // Handle React routing, return all requests to React app
     app.get("/", (req, res) => {
+      console.log('Directory Name is: ', __dirname);
       res.sendFile(path.join(__dirname, "../../../build", "index.html"));
     });
   }
