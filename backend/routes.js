@@ -6,6 +6,23 @@ const URLShortenerRepository = require("./repository/URLShortenerRepository");
 const { validateSuffix } = require("./util/FormValidator");
 
 const routes = (app) => {
+
+  const success = (result) => {
+    if (!result) {
+      URLShortenerRepository.saveSingleRecord(
+        suffix,
+        destinationUrl,
+        (result) => {
+          ResponseUtil.success(res, {
+            shortenedUrl: generateShortendUrl(req, suffix),
+          });
+        }
+      );
+    } else {
+      ResponseUtil.unprocessibleEntity(res, "suffix already exists");
+    }
+  }
+
   app.get(baseRouteOf("/:suffix"), (req, res) => {
     const suffix = req.params.suffix;
     if (validateSuffix(suffix)) {

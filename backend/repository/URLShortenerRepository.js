@@ -1,4 +1,4 @@
-const executeQuery = require("../MySQLExecuteQuery");
+const executeQuery = require("../util/mysql/MySQLExecuteQuery");
 const mysql = require("mysql");
 
 const findRecordBySuffix = (suffix, success, error) => {
