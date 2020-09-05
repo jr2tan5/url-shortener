@@ -5,7 +5,7 @@ const success = (res, data) => {
 };
 
 const notFound = (res, message) => {
-  res.status(StatusCodes.NOT_FOUND).send(message);
+  res.status(StatusCodes.NOT_FOUND).send({ message: message });
 };
 
 const unprocessibleEntity = (res, message) => {

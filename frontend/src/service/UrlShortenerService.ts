@@ -9,7 +9,7 @@ const createUrlEntry = async (form: Form): Promise<string> => {
     body: JSON.stringify({ form }),
   });
   const data = await response.json();
-  if (response.status === StatusCodes.UNPROCESSABLE_ENTITY) {
+  if (response.status !== StatusCodes.OK) {
     alert(data.message);
     return "";
   }
