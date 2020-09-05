@@ -2,8 +2,8 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
-const loadHtml = require("./LoadHtml");
-require("./LoadEnvConfig");
+const loadHtml = require("./util/loader/LoadHtml");
+require("./util/loader/LoadEnvConfig");
 
 // Self calling initialzation function
 (() => {
