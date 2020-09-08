@@ -6,37 +6,19 @@ const URLShortenerRepository = require("./repository/URLShortenerRepository");
 const { validateSuffix } = require("./util/FormValidator");
 
 const routes = (app) => {
-
-  const success = (result) => {
-    if (!result) {
-      URLShortenerRepository.saveSingleRecord(
-        suffix,
-        destinationUrl,
-        (result) => {
-          ResponseUtil.success(res, {
-            shortenedUrl: generateShortendUrl(req, suffix),
-          });
-        }
-      );
-    } else {
-      ResponseUtil.unprocessibleEntity(res, "suffix already exists");
-    }
-  }
-
-  app.get(baseRouteOf("/:suffix"), (req, res) => {
+  app.get(baseRouteOf("/:suffix"), async (req, res) => {
     const suffix = req.params.suffix;
     if (validateSuffix(suffix)) {
-      URLShortenerRepository.findRecordBySuffix(
-        suffix,
-        (result) => {
-          if (result)
-            res.redirect(UrlUtil.protocalAppender(result.destination_url));
-          else ResponseUtil.notFound(res, "url not found");
-        },
-        (error) => {
-          if (error) ResponseUtil.unprocessibleEntity(res, error);
-        }
-      );
+      const result = await URLShortenerRepository.findRecordBySuffix(
+        suffix
+      ).catch((error) => {
+        ResponseUtil.unprocessibleEntity(res, error);
+      });
+      if (result) {
+        res.redirect(UrlUtil.protocalAppender(result.destination_url));
+      } else {
+        ResponseUtil.notFound(res, "url not found");
+      }
     } else {
       ResponseUtil.unprocessibleEntity(
         res,
@@ -45,32 +27,27 @@ const routes = (app) => {
     }
   });
 
-  app.post(apiRouteOf("/submit"), (req, res) => {
+  app.post(apiRouteOf("/submit"), async (req, res) => {
     const suffix = req.body.form.suffix_;
     const destinationUrl = req.body.form.destinationUrl_;
 
     if (validateSuffix(suffix)) {
-      URLShortenerRepository.findRecordBySuffix(
-        suffix,
-        (result) => {
-          if (!result) {
-            URLShortenerRepository.saveSingleRecord(
-              suffix,
-              destinationUrl,
-              (result) => {
-                ResponseUtil.success(res, {
-                  shortenedUrl: generateShortendUrl(req, suffix),
-                });
-              }
-            );
-          } else {
-            ResponseUtil.unprocessibleEntity(res, "suffix already exists");
-          }
-        },
-        (error) => {
-          if (error) ResponseUtil.unprocessibleEntity(res, error);
-        }
-      );
+      const result = await URLShortenerRepository.findRecordBySuffix(
+        suffix
+      ).catch((error) => {
+        ResponseUtil.unprocessibleEntity(res, error);
+      });
+      if (!result) {
+        const savedResult = await URLShortenerRepository.saveSingleRecord(
+          suffix,
+          destinationUrl
+        );
+        ResponseUtil.success(res, {
+          shortenedUrl: generateShortendUrl(req, savedResult),
+        });
+      } else {
+        ResponseUtil.unprocessibleEntity(res, "suffix already exists");
+      }
     } else {
       ResponseUtil.unprocessibleEntity(
         res,
