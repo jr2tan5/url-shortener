@@ -19,6 +19,6 @@
     "chai": "^4.2.0"
   },
   "devDependencies": {
-    "concurrently": "^4.1.2",
+    "concurrently": "^4.1.2"
   }
 }
