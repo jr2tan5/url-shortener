@@ -16,7 +16,7 @@ You will also see any lint errors in the console.
 
 Run the built-in backend util unit test case
 
-### 'npm run start'
+### `npm run start`
 Used in production on heroku. This starts the backend server which is automatically interfaced with the frontend build folder under production environment. 
 
 ### `npm run heroku-prebuild`
