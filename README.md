@@ -26,7 +26,7 @@ Used in production on heroku. Install the dependencies of both the frontend and 
 ### `npm run heroku-prebuild`
 Used in production on heroku. Builds the production version of the frontend by removing unnecessary spaces and new lines. This optimized frontend folder will then be moved to the backend folder where it is found and serviced by the backend when npm run start is called and the service environment is in production.
 
-### 'npm run dev'
+### `npm run dev`
 
 Runs the backend server on localhost:5000 and the frontend server on localhost:3000. In addition, sets the node environment to development which makes it load the development environmental files
 
